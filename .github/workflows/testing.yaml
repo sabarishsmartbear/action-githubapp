@@ -1,0 +1,19 @@
+name: GitHub App Action
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Custom message to echo'
+        required: false
+        default: 'Hello from main repository!'
+jobs:
+  github-app-action:
+    name: GitHub App Echo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Confirmation
+        run: |
+          echo "✅ Successfully triggered from main repository!"
+          echo "Custom message: ${{ github.event.inputs.message }}"
+          echo "This is the action-githubapp repository workflow"
+          echo "Workflow triggered at: $(date)"
