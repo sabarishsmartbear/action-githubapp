@@ -6,6 +6,8 @@ on:
         description: 'Custom message to echo'
         required: false
         default: 'Hello from main repository!'
+  repository_dispatch:
+    types: [trigger-from-main-repo]
 jobs:
   github-app-action:
     name: GitHub App Echo
@@ -14,6 +16,7 @@ jobs:
       - name: Echo Confirmation
         run: |
           echo "✅ Successfully triggered from main repository!"
-          echo "Custom message: ${{ github.event.inputs.message }}"
+          echo "Custom message: ${{ github.event.inputs.message || github.event.client_payload.message || 'No message provided' }}"
           echo "This is the action-githubapp repository workflow"
           echo "Workflow triggered at: $(date)"
+          echo "Trigger type: ${{ github.event_name }}"
